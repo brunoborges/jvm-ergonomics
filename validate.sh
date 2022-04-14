@@ -6,7 +6,7 @@ containerimage=$1:$2
 
 # Check if Microsoft Build of OpenJDK
 if [[ $imagerepo == "mcr.microsoft.com/openjdk/jdk" ]]; then
-  containerimage = $containerimage-ubuntu
+  containerimage=$containerimage-ubuntu
 fi
 
 echo "Running image $containerimage with 1791mb of memory..."
