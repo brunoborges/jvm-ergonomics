@@ -17,6 +17,8 @@ grep '.*SerialGC.*true.*' output
 
 if [[ $? == 0 ]]; then
   echo "PASSED: SerialGC is selected"
+  exit 0
 else
   echo "FAILED: SerialGC is not selected"
+  exit 1
 fi  
