@@ -23,5 +23,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run docker and get SerialGC status (must be true)
-      run: validate.sh
+      run: validate.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
       shell: bash
