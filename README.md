@@ -1,6 +1,6 @@
 # JVM Ergonomics
 
-[![JVM Ergonomics Checker](https://github.com/brunoborges/jvm-ergonomics/actions/workflows/build.yml/badge.svg)](https://github.com/brunoborges/jvm-ergonomics/actions/workflows/build.yml)
+[![JVM Ergonomics Checker](https://github.com/brunoborges/jvm-ergonomics/workflows/JVM%20Ergonomics%20Checker/badge.svg)](https://github.com/brunoborges/jvm-ergonomics/actions/workflows/build.yml)
 
 This repository runs a script that checks the JVM Ergonomics selection of the Garbage Collector when up to 1791MB of memory is available to containers. The expected selection is `SerialGC`.
 
