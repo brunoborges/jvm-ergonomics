@@ -24,4 +24,4 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Run docker and get SerialGC status
-      run: docker run --memory=256m -ti openjdk:11 java -XX:+PrintFlagsFinal -XX:+UseContainerSupport | grep 'Use.*GC'
+      run: docker run --memory=256m openjdk:11 java -XX:+PrintFlagsFinal -XX:+UseContainerSupport | grep 'Use.*GC'
