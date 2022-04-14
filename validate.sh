@@ -10,7 +10,5 @@ if [[ $image == *"microsoft"* ]]; then
 fi
 
 echo "Running image $containerimage"
-        docker run \ 
-          --memory=256m \
-          $containerimage \
-          java -XX:+PrintFlagsFinal -XX:+UseContainerSupport -version | grep 'SerialGC'
+
+docker run --memory=256m $containerimage java -XX:+PrintFlagsFinal -XX:+UseContainerSupport -version | grep 'SerialGC'
