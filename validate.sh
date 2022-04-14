@@ -5,7 +5,7 @@ imageversion=$2
 containerimage=$1:$2
 
 # Check if Microsoft Build of OpenJDK
-if [[ $image == *"microsoft"* ]]; then
+if [[ $containerimage == *"microsoft"* ]]; then
   containerimage = $containerimage-ubuntu
 fi
 
