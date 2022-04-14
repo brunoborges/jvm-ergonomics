@@ -15,18 +15,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         jdkversion: [ '11', '17' ]
-        jdkvendor: ['temurin', 'microsoft', 'zulu', 'liberica']
+        image: ['azul/zulu-openjdk', 'mcr.microsoft.com/openjdk/jdk', 'eclipse-temurin', 'openjdk']
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: ${{ matrix.jdkversion }}
-        distribution: ${{ matrix.jdkvendor }}
     - name: Run docker and get SerialGC status (must be true)
       run: |
-        echo "${{ matrix.jdkvendor }} ${{ matrix.jdkversion }}" &&
-        docker run --memory=256m openjdk:11 java -XX:+PrintFlagsFinal -XX:+UseContainerSupport | grep 'SerialGC'
+        echo "${{ matrix.image }} ${{ matrix.jdkversion }}" &&
+        docker run --memory=256m ${{ matrix.image }}:${{ matrix.jdkversion }} java -XX:+PrintFlagsFinal -XX:+UseContainerSupport -version | grep 'SerialGC'
