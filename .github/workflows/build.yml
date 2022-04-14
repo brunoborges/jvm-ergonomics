@@ -23,6 +23,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run docker and get SerialGC status (must be true)
-      run: |
-        echo "${{ matrix.image }} ${{ matrix.jdkversion }}" &&
-        docker run --memory=256m ${{ matrix.image }}:${{ matrix.jdkversion }} java -XX:+PrintFlagsFinal -XX:+UseContainerSupport -version | grep 'SerialGC'
+      run: validate.sh
+      shell: bash
