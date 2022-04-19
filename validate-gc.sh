@@ -9,7 +9,7 @@ if [[ $imagerepo == "mcr.microsoft.com/openjdk/jdk" ]]; then
   containerimage=$containerimage-ubuntu
 fi
 
-echo "Pull container image...
+echo "Pull container image ${containerimage}..."
 docker pull $containerimage
 
 echo "Running image $containerimage with 1791mb of memory..."
