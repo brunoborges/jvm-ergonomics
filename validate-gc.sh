@@ -11,14 +11,30 @@ fi
 
 echo "Running image $containerimage with 1791mb of memory..."
 
-docker run --memory=1791m $containerimage java -XX:+PrintFlagsFinal -XX:+UseContainerSupport -version > output
+# Test SerialGC
+echo "-- Test for SerialGC ..."
+docker run --memory=1791m $containerimage java -XX:+PrintFlagsFinal -version > output
 
 grep '.*SerialGC.*true.*' output
 
 if [[ $? == 0 ]]; then
-  echo "PASSED: SerialGC is selected"
+  echo "PASSED: SerialGC is selected for 1791m"
   exit 0
 else
-  echo "FAILED: SerialGC is not selected"
+  echo "FAILED: SerialGC is not selected for 1791m"
+  exit 1
+fi  
+
+# Test G1GC
+echo "-- Test for G1GC ..."
+docker run --memory=1792m $containerimage java -XX:+PrintFlagsFinal -version > output
+
+grep '.*G1GC.*true.*' output
+
+if [[ $? == 0 ]]; then
+  echo "PASSED: G1GC is selected for 1792m"
+  exit 0
+else
+  echo "FAILED: G1GC is not selected for 1792m"
   exit 1
 fi  
