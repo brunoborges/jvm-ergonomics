@@ -9,10 +9,13 @@ if [[ $imagerepo == "mcr.microsoft.com/openjdk/jdk" ]]; then
   containerimage=$containerimage-ubuntu
 fi
 
+echo "Pull container image...
+docker pull $containerimage
+
 echo "Running image $containerimage with 1791mb of memory..."
 
 # Test SerialGC
-echo "-- Test for SerialGC ..."
+echo "-- Test for SerialGC with 1791m..."
 docker run --memory=1791m $containerimage java -XX:+PrintFlagsFinal -version > output
 
 grep '.*SerialGC.*true.*' output
@@ -27,7 +30,7 @@ else
 fi  
 
 # Test G1GC
-echo "-- Test for G1GC ..."
+echo "-- Test for G1GC with 1792m..."
 docker run --memory=1792m $containerimage java -XX:+PrintFlagsFinal -version > output
 
 grep '.*G1GC.*true.*' output
