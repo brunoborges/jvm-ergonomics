@@ -6,17 +6,30 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
-    
+
 jobs:
-  build:
-    name: Validate Default GC
+  build_jdk11_jdk17:
+    name: Validate Default GC (JDK 11 / JDK 17)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         jdkversion: [ '11', '17' ]
         image: ['azul/zulu-openjdk', 'mcr.microsoft.com/openjdk/jdk', 'eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run docker and get SerialGC status (must be true)
+      run: ./validate-gc.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
+      shell: bash
 
+  build_jdk18:
+    name: Validate Default GC (JDK 18)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jdkversion: [ '18' ]
+        image: ['azul/zulu-openjdk', 'eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
     steps:
     - uses: actions/checkout@v3
     - name: Run docker and get SerialGC status (must be true)
