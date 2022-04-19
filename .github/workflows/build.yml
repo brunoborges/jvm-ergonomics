@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_jdk11_jdk17:
-    name: Validate Default GC (JDK 11 / JDK 17)
+  build_lts:
+    name: Validate Default GC on LTS (JDK 11 / JDK 17)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -21,6 +21,9 @@ jobs:
     - name: Run docker and get SerialGC status (must be true)
       run: ./validate-gc.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
       shell: bash
+    - name: Run docker and get Available Processor count (must be 1)
+      run: ./validate-cpucount.sh ${{ matrix.image }} ${{ matrix.jdkversion }} 1 1
+      shell: bash
 
   build_jdk18:
     name: Validate Default GC (JDK 18)
@@ -29,9 +32,15 @@ jobs:
       fail-fast: false
       matrix:
         jdkversion: [ '18' ]
-        image: ['azul/zulu-openjdk', 'eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
+        image: ['eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
     steps:
     - uses: actions/checkout@v3
-    - name: Run docker and get SerialGC status (must be true)
-      run: ./validate-gc.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
+    - name: Run docker and get SerialGC status for 1791mb
+      run: ./validate-gc.sh ${{ matrix.image }} ${{ matrix.jdkversion }} SerialGC 1791
+      shell: bash
+    - name: Run docker and get G1GC status for 1792mb
+      run: ./validate-gc.sh ${{ matrix.image }} ${{ matrix.jdkversion }} G1GC 1792
+      shell: bash
+    - name: Run docker and get Available Processor count (must be 1)
+      run: ./validate-cpucount.sh ${{ matrix.image }} ${{ matrix.jdkversion }} 1 1
       shell: bash
