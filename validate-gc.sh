@@ -23,9 +23,9 @@ grep '.*SerialGC.*true.*' output
 failed=0
 
 if [[ $? == 0 ]]; then
-  echo "PASSED: SerialGC is selected for 1791m"
+  echo "PASSED: SerialGC is selected with 1791m"
 else
-  echo "FAILED: SerialGC is not selected for 1791m"
+  echo "FAILED: SerialGC is not selected with 1791m"
   failed=1
 fi  
 
@@ -36,9 +36,9 @@ docker run --memory=1792m $containerimage java -XX:+PrintFlagsFinal -version > o
 grep '.*G1GC.*true.*' output
 
 if [[ $? == 0 ]]; then
-  echo "PASSED: G1GC is selected for 1792m"
+  echo "PASSED: G1GC is selected with 1792m"
 else
-  echo "FAILED: G1GC is not selected for 1792m"
+  echo "FAILED: G1GC is not selected with 1792m"
   failed=1
 fi  
 
