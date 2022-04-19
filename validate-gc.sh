@@ -17,12 +17,13 @@ docker run --memory=1791m $containerimage java -XX:+PrintFlagsFinal -version > o
 
 grep '.*SerialGC.*true.*' output
 
+failed=0
+
 if [[ $? == 0 ]]; then
   echo "PASSED: SerialGC is selected for 1791m"
-  exit 0
 else
   echo "FAILED: SerialGC is not selected for 1791m"
-  exit 1
+  failed=1
 fi  
 
 # Test G1GC
@@ -33,8 +34,9 @@ grep '.*G1GC.*true.*' output
 
 if [[ $? == 0 ]]; then
   echo "PASSED: G1GC is selected for 1792m"
-  exit 0
 else
   echo "FAILED: G1GC is not selected for 1792m"
-  exit 1
+  failed=1
 fi  
+
+exit $failed
