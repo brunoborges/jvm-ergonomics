@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_lts:
-    name: Validate Default GC on LTS (JDK 11 / JDK 17)
+    name: Validate RAMPercentage with JDK 11 and JDK 17
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -18,12 +18,12 @@ jobs:
         image: ['azul/zulu-openjdk', 'mcr.microsoft.com/openjdk/jdk', 'eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
     steps:
     - uses: actions/checkout@v3
-    - name: Run docker and validate default GCs
+    - name: Run docker
       run: sh validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
       shell: bash
 
   build_jdk18:
-    name: Validate Default GC (JDK 18)
+    name: Validate RAMPercentage with JDK 18
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -32,7 +32,6 @@ jobs:
         image: ['eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
     steps:
     - uses: actions/checkout@v3
-    - name: Run docker and validate default GCs
+    - name: Run docker
       run: sh validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
       shell: bash
-
