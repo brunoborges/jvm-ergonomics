@@ -15,7 +15,7 @@ docker pull $containerimage
 echo "Running image $containerimage ..."
 
 # Test MaxRAMPercentage
-echo "-- Test for MaxRAMPercentage..."
-docker run --memory=128m $containerimage java -XX:+PrintFlagsFinal -version 2&1> output
+echo "-- Test for RAMPercentage..."
+docker run --memory=128m $containerimage java -XX:+PrintFlagsFinal -version > output
 
-grep 'RAMPercentage' output
+grep '.*RAMPercentage.*' output
