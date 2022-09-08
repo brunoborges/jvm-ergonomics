@@ -1,0 +1,38 @@
+name: JVM Ergonomics Checker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_lts:
+    name: Validate Default GC on LTS (JDK 11 / JDK 17)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jdkversion: [ '11', '17' ]
+        image: ['azul/zulu-openjdk', 'mcr.microsoft.com/openjdk/jdk', 'eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run docker and validate default GCs
+      run: ./validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
+      shell: bash
+
+  build_jdk18:
+    name: Validate Default GC (JDK 18)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jdkversion: [ '18' ]
+        image: ['eclipse-temurin', 'openjdk', 'bellsoft/liberica-openjdk-debian']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run docker and validate default GCs
+      run: ./validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
+      shell: bash
+
