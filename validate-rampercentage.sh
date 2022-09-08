@@ -1,11 +1,11 @@
 #!/bin/bash
 imagerepo=$1
-imageversion=$2
+imagetag=$2
 
 containerimage=$1:$2
 
 # Check if Microsoft Build of OpenJDK
-if [[ $imagerepo == "mcr.microsoft.com/openjdk/jdk" ]]; then
+if [[ "${imagetag}" -eq "mcr.microsoft.com/openjdk/jdk" ]]; then
   containerimage=$containerimage-ubuntu
 fi
 

@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_lts:
-    name: Validate RAMPercentage with JDK 11 and JDK 17
+    name: RAMPercentage JDK 11/17
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -19,11 +19,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run docker
-      run: sh validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
+      run: bash validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
       shell: bash
 
   build_jdk18:
-    name: Validate RAMPercentage with JDK 18
+    name: RAMPercentage JDK 18
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -33,5 +33,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run docker
-      run: sh validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
+      run: bash validate-rampercentage.sh ${{ matrix.image }} ${{ matrix.jdkversion }}
       shell: bash
