@@ -1,4 +1,4 @@
-name: JVM Ergonomics Checker
+name: JVM Ergo Default GC
 
 on:
   push:
