@@ -5,7 +5,7 @@ imagetag=$2
 containerimage=$1:$2
 
 # Check if Microsoft Build of OpenJDK
-if [[ "${imagetag}" -eq "mcr.microsoft.com/openjdk/jdk" ]]; then
+if [[ $containerimage == *"microsoft"* ]]; then
   containerimage=$containerimage-ubuntu
 fi
 
