@@ -23,7 +23,7 @@ The ergonomic selection of a garbage collector in the HotSpot JVM happens on the
 
 In both cases, the selection of the GC is dependent upon the JVM understanding of whether it is running on a `Server Class Machine` or a `Client Class Machine`. This distinction is done in the following classes:
 
-- JDK 17: https://github.com/openjdk/jdk17u/blob/master/src/hotspot/share/runtime/os.cpp#L1686
-- JDK 11: https://github.com/openjdk/jdk11u/blob/master/src/hotspot/share/runtime/os.cpp#L1696
+- JDK 17: https://github.com/openjdk/jdk17u/blob/master/src/hotspot/share/runtime/os.cpp#L1714
+- JDK 11: https://github.com/openjdk/jdk11u/blob/master/src/hotspot/share/runtime/os.cpp#L1701
 
 As you can see on the source code, the JVM considers a machine (or environment, such as a container) with 1792MB or more of memory available, and two or more available processors, as a `Server Class Machine`; otherwise, it is a `Client Class Machine`.
